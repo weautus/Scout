@@ -43,6 +43,7 @@ public class MembreEJB {
     }
 
     public Membre connecter(String login, String mdp) {
+        System.out.println(login +" - "+mdp);
         Query q = em.createQuery("SELECT m FROM Membre m WHERE m.login = :login");
         q.setParameter("login", login);
         Membre m = (Membre) q.getSingleResult();
