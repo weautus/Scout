@@ -15,10 +15,12 @@
                 <h:outputLabel value="Login:"/>  
                 <h:inputText id="login" value="#{membreCtrl.login}" />
                 <h:outputLabel value="Mot de passe:"/>  
-                <h:inputText id="mdp" value="#{membreCtrl.mdp}" />  
+                <h:inputSecret id="mdp" value="#{membreCtrl.mdp}" />  
 
                 <h:commandButton action="#{membreCtrl.identifier()}" value="S'identifier"/>
                 <h:commandButton action="#{membreCtrl.goInscription()}" value="S'inscrire"/>
+                
+                <h:outputText value="#{membreCtrl.erreur}"/>
             </h:panelGrid>  
 
         </h:form>  

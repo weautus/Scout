@@ -27,6 +27,7 @@ public class MembreController implements Serializable {
     private boolean estConnecte;
     private String message;
     private String conversation;
+    private String erreur;
 
     
     public String envoyer(){
@@ -38,13 +39,14 @@ public class MembreController implements Serializable {
     }
     
     public String identifier() {
+
         membreConnecte = membreEJB.connecter(login, mdp);
         if (membreConnecte == null) {
-            System.out.println("FAILURE");
+            erreur = "Login ou mot de passe invalide.";
             return "FAILURE";
         }
         estConnecte = true;
-        System.out.println("SUCCESS");
+        erreur = null;
         return "SUCCESS";
     }
     
@@ -179,5 +181,25 @@ public class MembreController implements Serializable {
     public void setConversation(String conversation) {
         this.conversation = conversation;
     }
+    
+    
+    /**
+     * Get the value of erreur
+     *
+     * @return the value of erreur
+     */
+    public String getErreur() {
+        return erreur;
+    }
+
+    /**
+     * Set the value of erreur
+     *
+     * @param erreur new value of erreur
+     */
+    public void setErreur(String erreur) {
+        this.erreur = erreur;
+    }
+
 
 }

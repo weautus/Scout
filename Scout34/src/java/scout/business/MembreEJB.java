@@ -4,6 +4,7 @@
  */
 package scout.business;
 
+import ConversionChaine.MyString;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,14 +19,13 @@ import scout.entity.Staff;
  */
 @Stateless
 public class MembreEJB {
+
     @PersistenceContext(unitName = "Scout34PU")
     private EntityManager em;
 
-
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-
-    public Membre inscrire(String nom, String prenom, String totem, Date ddn, String login, String mdp, int statut,  int staff) {        
+    public Membre inscrire(String nom, String prenom, String totem, Date ddn, String login, String mdp, int statut, int staff) {
         Membre m = new Membre();
         m.setNom(nom);
         m.setPrenom(prenom);
@@ -42,15 +42,18 @@ public class MembreEJB {
         return m;
     }
 
-    public Membre connecter(String login, String mdp) {
-        System.out.println(login +" - "+mdp);
-        Query q = em.createQuery("SELECT m FROM Membre m WHERE m.login = :login");
-        q.setParameter("login", login);
-        Membre m = (Membre) q.getSingleResult();
-        if(m.getMdp().equals(mdp)){
-            return m;
+    public Membre connecter(String login, String mdp){
+        
+        if (!MyString.contientCaractere(login, "<>$[]()")) {
+            Query q = em.createQuery("SELECT m FROM Membre m WHERE m.login = :login");
+            q.setParameter("login", login);
+            if (!q.getResultList().isEmpty()) {
+                Membre m = (Membre) q.getSingleResult();
+                if (m.getMdp().equals(mdp)) {
+                    return m;
+                }
+            }
         }
         return null;
     }
-
 }
