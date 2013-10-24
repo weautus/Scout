@@ -47,6 +47,10 @@ public class MembreController implements Serializable {
         System.out.println("SUCCESS");
         return "SUCCESS";
     }
+    
+    public String goInscription(){
+        return "INSCRIPTION";
+    }
 
     public String goChat() {
         if (membreConnecte != null) {
