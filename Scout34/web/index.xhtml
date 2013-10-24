@@ -7,20 +7,9 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form>  
-
-            <h:panelGrid columns="3" cellpadding="2">  
-                <h:outputLabel for="name" value="Login:" style="font-weight:bold"/>  <p:inputText id="name" value="#{membreCtrl.login}" required="true" requiredMessage="Veuillez entrez un login"/> <br/>
-                <h:outputLabel for="mdp" value="Mot de passe:" style="font-weight:bold"/>   <p:inputText type="password" id="mdp" value="#{membreCtrl.mdp}" required="true" requiredMessage="Veuillez entrez un mot de passe"/> <br/>
-                <p:commandButton action="#{membreCtrl.identifier()}" value="Se connecter"/>  <a href="inscription.xhtml">s'inscrire</a>
-            </h:panelGrid>  
-
-            <h:panelGrid>
-                Connecté en tant que : <h:outputLabel value="#{membreCtrl.membreConnecte.login}"/>
-            </h:panelGrid>
-            
-        </h:form>
-        
+    
+    
+    
     </h:body>
 </html>
 
