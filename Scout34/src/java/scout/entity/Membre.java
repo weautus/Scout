@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Wfix
+ * @author kevin
  */
 @Entity
 @Table(name = "MEMBRE")
@@ -41,11 +41,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Membre.findByIdmembre", query = "SELECT m FROM Membre m WHERE m.idmembre = :idmembre"),
     @NamedQuery(name = "Membre.findByNom", query = "SELECT m FROM Membre m WHERE m.nom = :nom"),
     @NamedQuery(name = "Membre.findByPrenom", query = "SELECT m FROM Membre m WHERE m.prenom = :prenom"),
-    @NamedQuery(name = "Membre.findByTotem", query = "SELECT m FROM Membre m WHERE m.totem = :totem"),
-    @NamedQuery(name = "Membre.findByDdn", query = "SELECT m FROM Membre m WHERE m.ddn = :ddn"),
     @NamedQuery(name = "Membre.findByLogin", query = "SELECT m FROM Membre m WHERE m.login = :login"),
     @NamedQuery(name = "Membre.findByMdp", query = "SELECT m FROM Membre m WHERE m.mdp = :mdp"),
-    @NamedQuery(name = "Membre.findByStatut", query = "SELECT m FROM Membre m WHERE m.statut = :statut"),
+    @NamedQuery(name = "Membre.findByTotem", query = "SELECT m FROM Membre m WHERE m.totem = :totem"),
+    @NamedQuery(name = "Membre.findByStatus", query = "SELECT m FROM Membre m WHERE m.status = :status"),
+    @NamedQuery(name = "Membre.findByDdn", query = "SELECT m FROM Membre m WHERE m.ddn = :ddn"),
     @NamedQuery(name = "Membre.findByEmail", query = "SELECT m FROM Membre m WHERE m.email = :email"),
     @NamedQuery(name = "Membre.findByActif", query = "SELECT m FROM Membre m WHERE m.actif = :actif"),
     @NamedQuery(name = "Membre.findByAdmin", query = "SELECT m FROM Membre m WHERE m.admin = :admin")})
@@ -58,32 +58,36 @@ public class Membre implements Serializable {
     @TableGenerator(name="Membre", allocationSize=1)
     @Column(name = "IDMEMBRE")
     private Integer idmembre;
-    @Size(max = 255)
-    @Column(name = "NOM")
-    private String nom;
-    @Size(max = 255)
-    @Column(name = "PRENOM")
-    private String prenom;
-    @Size(max = 255)
-    @Column(name = "TOTEM")
-    private String totem;
-    @Column(name = "DDN")
-    @Temporal(TemporalType.DATE)
-    private Date ddn;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
+    @Column(name = "NOM")
+    private String nom;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "PRENOM")
+    private String prenom;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
     @Column(name = "LOGIN")
     private String login;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 25)
     @Column(name = "MDP")
     private String mdp;
+    @Size(max = 50)
+    @Column(name = "TOTEM")
+    private String totem;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "STATUT")
-    private int statut;
+    @Column(name = "STATUS")
+    private int status;
+    @Column(name = "DDN")
+    @Temporal(TemporalType.DATE)
+    private Date ddn;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 50)
     @Column(name = "EMAIL")
@@ -109,11 +113,13 @@ public class Membre implements Serializable {
         this.idmembre = idmembre;
     }
 
-    public Membre(Integer idmembre, String login, String mdp, int statut, int actif, int admin) {
+    public Membre(Integer idmembre, String nom, String prenom, String login, String mdp, int status, int actif, int admin) {
         this.idmembre = idmembre;
+        this.nom = nom;
+        this.prenom = prenom;
         this.login = login;
         this.mdp = mdp;
-        this.statut = statut;
+        this.status = status;
         this.actif = actif;
         this.admin = admin;
     }
@@ -142,22 +148,6 @@ public class Membre implements Serializable {
         this.prenom = prenom;
     }
 
-    public String getTotem() {
-        return totem;
-    }
-
-    public void setTotem(String totem) {
-        this.totem = totem;
-    }
-
-    public Date getDdn() {
-        return ddn;
-    }
-
-    public void setDdn(Date ddn) {
-        this.ddn = ddn;
-    }
-
     public String getLogin() {
         return login;
     }
@@ -174,12 +164,28 @@ public class Membre implements Serializable {
         this.mdp = mdp;
     }
 
-    public int getStatut() {
-        return statut;
+    public String getTotem() {
+        return totem;
     }
 
-    public void setStatut(int statut) {
-        this.statut = statut;
+    public void setTotem(String totem) {
+        this.totem = totem;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Date getDdn() {
+        return ddn;
+    }
+
+    public void setDdn(Date ddn) {
+        this.ddn = ddn;
     }
 
     public String getEmail() {

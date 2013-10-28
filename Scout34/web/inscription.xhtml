@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"    
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -16,40 +15,61 @@
                 <!-- Login -->
                 <h:outputLabel value="Login:"/>  
                 <h:inputText id="login" value="#{membreCtrl.membreACreer.login}" 
-                             required="true" requiredMessage="Login nécessaire" >
-                    <f:validateLength minimum="2" maximum="20" />
+                             required="true" requiredMessage="Login nécessaire" validatorMessage="Login ne peut contenir que des lettres et des chiffres">
+                    <f:validateLength minimum="4" maximum="20" />
+                    <f:validateRegex 
+                        pattern= "^[0-9a-zA-Z ]+$" />
+
                 </h:inputText>
                 <h:message for="login" style="color:red"/>
 
+                
+                
                 <!-- MDP -->
                 <h:outputLabel value="Mot de passe:"/>  
                 <h:inputSecret id="mdp" value="#{membreCtrl.membreACreer.mdp}" 
-                               required="true" requiredMessage="Mot de passe nécessaire" >
+                               required="true" requiredMessage="Mot de passe nécessaire" validatorMessage="Mot de passe ne peut contenir que des lettres et des chiffres">
                     <f:validateLength minimum="4" maximum="20" />
+                    <f:validateRegex 
+                        pattern= "^[0-9a-zA-Z ]+$" />
                 </h:inputSecret>
                 <h:message for="mdp" style="color:red"/>
 
+                
+                
                 <!-- Nom -->
                 <h:outputLabel value="Nom:"/>  
                 <h:inputText id="nom" value="#{membreCtrl.membreACreer.nom}" 
-                             required="true" requiredMessage="Nom nécessaire" >
+                             required="true" requiredMessage="Nom nécessaire" validatorMessage="Nom ne peut contenir que des lettres et des chiffres">
                     <f:validateLength minimum="2" maximum="30" />
+                    <f:validateRegex 
+                        pattern= "^[0-9a-zA-Z ]+$" />
                 </h:inputText>
                 <h:message for="nom" style="color:red"/>
 
+                
+                
                 <!-- Prénom -->
                 <h:outputLabel value="Prénom:"/>  
                 <h:inputText id="prenom" value="#{membreCtrl.membreACreer.prenom}" 
-                             required="true" requiredMessage="Prénom nécessaire" >
+                             required="true" requiredMessage="Prénom nécessaire" validatorMessage="Prénom ne peut contenir que des lettres et des chiffres">
                     <f:validateLength minimum="2" maximum="30" />
+                    <f:validateRegex 
+                        pattern= "^[0-9a-zA-Z ]+$" />
                 </h:inputText>
                 <h:message for="prenom" style="color:red"/>
 
+                
+                
                 <!-- Totem -->
                 <h:outputLabel value="Totem:"/>  
                 <h:inputText id="totem" value="#{membreCtrl.membreACreer.totem}">
+                    
                 </h:inputText>
+                <h:message for="totem" style="color:red"/>
 
+                
+                
                 <!-- DDN -->
                 <h:outputLabel value="Date de naissance(jj/mm/aaaa):"/>  
                 <h:inputText id="ddn" value="#{membreCtrl.membreACreer.ddn}" 
@@ -58,26 +78,32 @@
                 </h:inputText>
                 <h:message for="ddn" style="color:red"/>
 
+                
+                
                 <!-- EMAIL -->
                 <h:outputLabel value="Email:"/>  
                 <h:inputText id="email" value="#{membreCtrl.membreACreer.prenom}" 
                              required="true" requiredMessage="Email nécessaire" validatorMessage="Email non valide">
                     <f:validateLength minimum="2" maximum="30" />
                     <f:validateRegex
-		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                    
+                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
                 </h:inputText>
                 <h:message for="email" style="color:red"/>   
+
+                
                 
                 <!-- Status -->
                 <h:outputLabel value="Statut dans l'unité:"/>  
-                <h:selectOneMenu id="status" value="#{membreCtrl.membreACreer.statut}">
+                <h:selectOneMenu id="status" value="#{membreCtrl.membreACreer.status}">
                     <f:selectItem itemValue="0" itemLabel="Animé"/>
                     <f:selectItem itemValue="1" itemLabel="Animateur"/>
                     <f:selectItem itemValue="2" itemLabel="Parent"/>
                     <f:selectItem itemValue="3" itemLabel="Ancien"/>   
                 </h:selectOneMenu>
                 <h:message for="status" style="color:red"/>
+
+                
                 
                 <!-- Staff -->
                 <h:outputLabel value="Staff si animateur:"/>
@@ -90,6 +116,8 @@
                     <f:selectItem itemValue="4" itemLabel="Unité"/>
                 </h:selectOneMenu>
                 <h:message for="staff" style="color:red"/>
+
+                
                 
                 <h:commandButton action="#{membreCtrl.goInscriptionFin()}" value="Enregistrer"/>
 

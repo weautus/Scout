@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Wfix
+ * @author kevin
  */
 @Entity
 @Table(name = "STAFF")
@@ -41,9 +41,7 @@ public class Staff implements Serializable {
     @NotNull
     @Column(name = "IDSTAFF")
     private Integer idstaff;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 25)
     @Column(name = "NOM")
     private String nom;
     @JoinColumn(name = "IDCHEFSECTION", referencedColumnName = "IDMEMBRE")
@@ -57,11 +55,6 @@ public class Staff implements Serializable {
 
     public Staff(Integer idstaff) {
         this.idstaff = idstaff;
-    }
-
-    public Staff(Integer idstaff, String nom) {
-        this.idstaff = idstaff;
-        this.nom = nom;
     }
 
     public Integer getIdstaff() {
