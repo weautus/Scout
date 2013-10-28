@@ -7,6 +7,7 @@ package scout.managedbeans;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.Date;
 import javax.ejb.EJB;
 import scout.business.MembreEJB;
 import scout.entity.Membre;
@@ -21,23 +22,17 @@ public class MembreController implements Serializable {
 
     @EJB
     private MembreEJB membreEJB;
+    
     private String mdp;
     private String login;
     private Membre membreConnecte;
     private boolean estConnecte;
-    private String message;
-    private String conversation;
     private String erreur;
+    private Membre membreACreer;
+    private Date dateSel;
+    private int intStaff;
 
-    
-    public String envoyer(){
-        if(conversation==null){
-            conversation="";
-        }
-        conversation += message + "<br/>";
-        return "Message";
-    }
-    
+
     public String identifier() {
 
         membreConnecte = membreEJB.connecter(login, mdp);
@@ -49,16 +44,33 @@ public class MembreController implements Serializable {
         erreur = null;
         return "SUCCESS";
     }
-    
-    public String goInscription(){
+
+    public String goInscription() {
+        membreACreer = new Membre();
+        erreur=null;
         return "INSCRIPTION";
     }
 
-    public String goChat() {
-        if (membreConnecte != null) {
-            return "chat.xhtml";
+    public String goAccueil() {
+        return "RETOURACCUEIL";
+    }
+
+    public String goInscriptionFin() {
+        erreur = null;
+        if (!membreEJB.loginPresent(membreACreer.getLogin())) {
+            membreConnecte = membreEJB.inscrire(membreACreer, intStaff);
+            if (membreConnecte == null) {
+                System.out.println("ERRRRRRRREUR inscription");
+                erreur = "Erreur lors de l'inscription : le pseudo est déjà utilisé";
+                return "INSCRIPTIONERREUR";
+            }
+            membreACreer = null;
+            estConnecte = true;
+            return "INSCRIPTIONFINOK";
+        } else {
+            erreur = "login déjà utilisé";
+            return "REINSCRIPTION";
         }
-        return "index.xhtml";
     }
 
     public void deconnexion() {
@@ -73,7 +85,7 @@ public class MembreController implements Serializable {
      */
     public MembreController() {
     }
-
+    
     /**
      * Get the value of membreConnecte
      *
@@ -146,43 +158,6 @@ public class MembreController implements Serializable {
         this.estConnecte = estConnecte;
     }
     
-      /**
-     * Get the value of message
-     *
-     * @return the value of message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * Set the value of message
-     *
-     * @param message new value of message
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-        /**
-     * Get the value of conversation
-     *
-     * @return the value of conversation
-     */
-    public String getConversation() {
-        return conversation;
-    }
-
-    /**
-     * Set the value of conversation
-     *
-     * @param conversation new value of conversation
-     */
-    public void setConversation(String conversation) {
-        this.conversation = conversation;
-    }
-    
-    
     /**
      * Get the value of erreur
      *
@@ -201,5 +176,57 @@ public class MembreController implements Serializable {
         this.erreur = erreur;
     }
 
+    /**
+     * Get the value of membreACreer
+     *
+     * @return the value of membreACreer
+     */
+    public Membre getMembreACreer() {
+        return membreACreer;
+    }
 
+    /**
+     * Set the value of membreACreer
+     *
+     * @param membreACreer new value of membreACreer
+     */
+    public void setMembreACreer(Membre membreACreer) {
+        this.membreACreer = membreACreer;
+    }
+
+    /**
+     * Get the value of dateSel
+     *
+     * @return the value of dateSel
+     */
+    public Date getDateSel() {
+        return dateSel;
+    }
+
+    /**
+     * Set the value of dateSel
+     *
+     * @param dateSel new value of dateSel
+     */
+    public void setDateSel(Date dateSel) {
+        this.dateSel = dateSel;
+    }
+
+    /**
+     * Get the value of intStaff
+     *
+     * @return the value of intStaff
+     */
+    public int getIntStaff() {
+        return intStaff;
+    }
+
+    /**
+     * Set the value of intStaff
+     *
+     * @param intStaff new value of intStaff
+     */
+    public void setIntStaff(int intStaff) {
+        this.intStaff = intStaff;
+    }
 }

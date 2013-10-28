@@ -2,9 +2,10 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="index.xhtml" x="480" y="113" zoom="true"/>
-        <Node id="inscription.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="welcomePrimefaces.xhtml" x="278" y="269" zoom="true"/>
+        <Node id="accueil.xhtml" x="733" y="277" zoom="true"/>
+        <Node id="index.xhtml" x="346" y="116" zoom="true"/>
+        <Node id="inscription.xhtml" x="76" y="411" zoom="true"/>
+        <Node id="inscriptionFinOK.xhtml" x="472" y="377" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

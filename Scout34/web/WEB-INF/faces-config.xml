@@ -10,12 +10,30 @@
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>SUCCESS</from-outcome>
-            <to-view-id>/welcomePrimefaces.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>INSCRIPTION</from-outcome>
             <to-view-id>/inscription.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SUCCESS</from-outcome>
+            <to-view-id>/accueil.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/inscription.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>REINSCRIPTION</from-outcome>
+            <to-view-id>/inscription.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>INSCRIPTIONERREUR</from-outcome>
+            <to-view-id>/inscriptionFinOK.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/inscriptionFinOK.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>RETOURACCUEIL</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

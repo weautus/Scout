@@ -1,7 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package scout.entity;
 
 import java.io.Serializable;
@@ -43,7 +45,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Membre.findByDdn", query = "SELECT m FROM Membre m WHERE m.ddn = :ddn"),
     @NamedQuery(name = "Membre.findByLogin", query = "SELECT m FROM Membre m WHERE m.login = :login"),
     @NamedQuery(name = "Membre.findByMdp", query = "SELECT m FROM Membre m WHERE m.mdp = :mdp"),
-    @NamedQuery(name = "Membre.findByStatut", query = "SELECT m FROM Membre m WHERE m.statut = :statut")})
+    @NamedQuery(name = "Membre.findByStatut", query = "SELECT m FROM Membre m WHERE m.statut = :statut"),
+    @NamedQuery(name = "Membre.findByEmail", query = "SELECT m FROM Membre m WHERE m.email = :email"),
+    @NamedQuery(name = "Membre.findByActif", query = "SELECT m FROM Membre m WHERE m.actif = :actif"),
+    @NamedQuery(name = "Membre.findByAdmin", query = "SELECT m FROM Membre m WHERE m.admin = :admin")})
 public class Membre implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,6 +84,18 @@ public class Membre implements Serializable {
     @NotNull
     @Column(name = "STATUT")
     private int statut;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 50)
+    @Column(name = "EMAIL")
+    private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ACTIF")
+    private int actif;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ADMIN")
+    private int admin;
     @OneToMany(mappedBy = "idchefsection")
     private Collection<Staff> staffCollection;
     @JoinColumn(name = "STAFF", referencedColumnName = "IDSTAFF")
@@ -92,11 +109,13 @@ public class Membre implements Serializable {
         this.idmembre = idmembre;
     }
 
-    public Membre(Integer idmembre, String login, String mdp, int statut) {
+    public Membre(Integer idmembre, String login, String mdp, int statut, int actif, int admin) {
         this.idmembre = idmembre;
         this.login = login;
         this.mdp = mdp;
         this.statut = statut;
+        this.actif = actif;
+        this.admin = admin;
     }
 
     public Integer getIdmembre() {
@@ -161,6 +180,30 @@ public class Membre implements Serializable {
 
     public void setStatut(int statut) {
         this.statut = statut;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getActif() {
+        return actif;
+    }
+
+    public void setActif(int actif) {
+        this.actif = actif;
+    }
+
+    public int getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
     }
 
     @XmlTransient
